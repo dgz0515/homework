@@ -1,3 +1,5 @@
+// 使用 fmt.Scanf 替代 bufio
+
 package main
 
 import (

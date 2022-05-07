@@ -1,3 +1,6 @@
+// 添加一个火山翻译
+// 使用两个并行的请求，对输入的单词进行同时翻译
+
 package main
 
 import (
@@ -151,9 +154,15 @@ func queryFromVol(word string, wg *sync.WaitGroup) {
 		log.Fatal(err)
 	}
 	fmt.Println("\nQuery from Volc:")
-	fmt.Println(word, "UK:", dictResponse.Words[0].PosList[0].Phonetics[0].Text, "US:", dictResponse.Words[0].PosList[0].Phonetics[1].Text)
+	_, err = fmt.Println(word, "UK:", dictResponse.Words[0].PosList[0].Phonetics[0].Text, "US:", dictResponse.Words[0].PosList[0].Phonetics[1].Text)
+	if err != nil {
+		log.Fatal(err)
+	}
 	for _, item := range dictResponse.Words[0].PosList {
-		fmt.Println(item.Explanations[0].Text)
+		_, err = fmt.Println(item.Explanations[0].Text)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 	wg.Done()
 }
@@ -207,9 +216,15 @@ func queryFromCaiyun(word string, wg *sync.WaitGroup) {
 		log.Fatal(err)
 	}
 	fmt.Println("\nQuery from Caiyun:")
-	fmt.Println(word, "UK:", dictResponse.Dictionary.Prons.En, "US:", dictResponse.Dictionary.Prons.EnUs)
+	_, err = fmt.Println(word, "UK:", dictResponse.Dictionary.Prons.En, "US:", dictResponse.Dictionary.Prons.EnUs)
+	if err != nil {
+		log.Fatal(err)
+	}
 	for _, item := range dictResponse.Dictionary.Explanations {
-		fmt.Println(item)
+		_, err = fmt.Println(item)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 	wg.Done()
 }
